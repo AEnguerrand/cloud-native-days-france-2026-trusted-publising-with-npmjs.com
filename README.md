@@ -20,22 +20,26 @@ Trusted Publishing allows you to publish npm packages directly from CI/CD workfl
 ```mermaid
 sequenceDiagram
     participant Dev as Developer
-    participant GH as GitHub Actions Runner
+    participant GHA as GitHub Actions
+    participant Runner as Runner (ubuntu-latest)
     participant OIDC as GitHub OIDC Provider
     participant SIG as Sigstore
     participant NPM as npm Registry
 
-    Dev->>GH: Push tag (v*)
-    GH->>GH: Workflow triggered
-    GH->>OIDC: Request OIDC token
-    OIDC->>GH: Short-lived JWT token
-    GH->>SIG: Sign provenance attestation
-    SIG->>GH: Signed provenance
-    GH->>NPM: npm publish + JWT + provenance
+    Dev->>GHA: Push tag (v*)
+    GHA->>GHA: Workflow triggered
+    GHA->>Runner: Start job
+    Runner->>Runner: Checkout code
+    Runner->>OIDC: Request OIDC token
+    OIDC->>Runner: Short-lived JWT token
+    Runner->>Runner: Build package
+    Runner->>SIG: Sign provenance attestation
+    SIG->>Runner: Signed provenance
+    Runner->>NPM: npm publish + JWT + provenance
     NPM->>NPM: Verify JWT signature
     NPM->>NPM: Check trusted publisher config
     NPM->>NPM: Store provenance attestation
-    NPM-->>GH: ✅ Package published
+    NPM-->>Runner: ✅ Package published
 ```
 
 ### Key benefits
