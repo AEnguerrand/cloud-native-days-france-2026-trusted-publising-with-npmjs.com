@@ -1,0 +1,31 @@
+{
+  "name": "cloud-native-days-france-2026-trusted-publishing-with-npmjs-com",
+  "version": "1.0.0",
+  "description": "A simple hello CLI for Cloud Native Days France 2026 - Trusted Publishing with npmjs.com lab",
+  "bin": {
+    "cloud-native-hello": "bin/cli.js"
+  },
+  "scripts": {
+    "start": "node bin/cli.js",
+    "build": "node --check bin/cli.js && echo 'Build successful!'"
+  },
+  "keywords": [
+    "cloud-native",
+    "cloud-native-days",
+    "france",
+    "trusted-publishing",
+    "cli"
+  ],
+  "author": "Enguerrand Allamel",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AEnguerrand/cloud-native-days-france-2026-trusted-publising-with-npmjs.com.git"
+  },
+  "files": [
+    "bin"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
